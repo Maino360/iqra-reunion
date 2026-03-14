@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ইকরা ঈদ পূনর্মিলনী ফেসবুক প্রোফাইল ফ্রেম</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+@font-face {
+  font-family: 'BanglaFont';
+  src: url('fonts/BanglaFont.ttf') format('truetype');
+}
+
+/* 🔥 FIX: Prevent page scrolling while adjusting image */
+#canvas {
+  touch-action: none !important;
+}
+
+body {
+  font-family: 'BanglaFont', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #e8f0ff 0%, #f8fbff 100%);
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  color: #111;
+}
+
+.glass-box {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 1.8rem;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
+  padding: 1.8rem;
+  transition: all 0.3s ease;
+}
+.glass-box:hover { transform: scale(1.02); }
+
+#dropZone {
+  transition: all 0.3s ease;
+  border: 2px dashed rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 1rem;
+  cursor: pointer;
+  color: #333;
+}
+#dropZone:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.03);
+}
+
+canvas {
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.gradient-btn {
+  background: linear-gradient(180deg, #1e8a42 0%, #116d33 100%);
+  color: #fff;
+  font-weight: 600;
+  padding: 12px 36px;
+  border-radius: 1.5rem;
+  border: none;
+  margin-top: 1rem;
+  box-shadow: 0 6px 0 #0c5728, 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+.gradient-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 #0c5728, 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+.gradient-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #0c5728, 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+.gradient-btn i { margin-right: 8px; }
+
+#downloadWrapper { position: relative; display: inline-block; }
+.spark {
+  position: absolute;
+  width: 5px; height: 5px;
+  background: #333;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(0,0);
+  transition: transform 0.8s linear, opacity 0.8s linear;
+}
+
+#notification {
+  position: fixed;
+  top: 20px; left: 50%;
+  transform: translateX(-50%) translateY(-100%);
+  background: rgba(50, 50, 50, 0.85);
+  color: white;
+  padding: 12px 28px;
+  border-radius: 2rem;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+  z-index: 9999;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+#notification.show { transform: translateY(0) translateX(-50%); opacity: 1; }
+</style>
+</head>
+
+<body>
+<header class="text-center py-6 px-4">
+  <h1 class="text-3xl font-semibold max-w-xl mx-auto">
+    ইকরা ঈদ পূনর্মিলনী <br>২০২৬
+  </h1>
+  <p class="text-base mt-2 opacity-80 max-w-xl mx-auto">
+    ছবি সিলেকশন করার পরে দুই আঙ্গুল দিয়ে ছবি জুম ইন জুম আউট করে এডজাস্ট করুন 
+    এবং ছবি ডানে বামে মুভ করানোর জন্য এক আঙ্গুল ক্যানভাসে ইউজ করুন।
+  </p>
+</header>
+
+<main class="flex-grow flex justify-center items-center px-4 pb-20">
+  <div class="glass-box w-full max-w-lg text-center">
+
+    <div id="dropZone" class="p-6">
+      <p class="text-lg">
+        <i class="fa-solid fa-cloud-arrow-up text-2xl mb-2"></i><br>
+        এখানে ছবি Drag & Drop করুন<br>অথবা ক্লিক করে আপলোড করুন
+      </p>
+      <input type="file" id="upload" accept="image/*" class="hidden">
+    </div>
+
+    <div class="mt-5">
+      <canvas id="canvas" width="2400" height="2400"></canvas>
+    </div>
+
+    <div id="downloadWrapper" class="flex justify-center mt-4">
+      <button id="download" class="gradient-btn hidden">
+        <i class="fa-solid fa-download"></i>ডাউনলোড করুন
+      </button>
+    </div>
+
+  </div>
+</main>
+
+<div id="notification">
+  <i id="notifIcon" class="fa-solid fa-spinner fa-spin text-blue-400"></i>
+  <span id="notifText">ডাউনলোড হচ্ছে...</span>
+</div>
+
+<script>
+const canvas = document.getElementById("canvas"), ctx = canvas.getContext("2d");
+const upload = document.getElementById("upload");
+const dropZone = document.getElementById("dropZone");
+const download = document.getElementById("download");
+
+const notification = document.getElementById("notification");
+const notifText = document.getElementById("notifText");
+const notifIcon = document.getElementById("notifIcon");
+
+const frame = new Image();
+frame.src = "frame.png";
+frame.onload = () => drawCanvas();
+
+let userImage = null, imgX = 0, imgY = 0, imgScale = 1;
+let startX = 0, startY = 0, dragging = false;
+let lastTouchDistance = 0, lastMidpoint = {x:0, y:0};
+
+let downloadCounter = localStorage.getItem("downloadCounter") || 1;
+downloadCounter = parseInt(downloadCounter);
+
+function formatCounter(n){ return "FP-" + n.toString().padStart(3, "0"); }
+
+function drawCanvas(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  if(userImage){
+    const cw = canvas.width, ch = canvas.height;
+    const iw = userImage.width, ih = userImage.height;
+
+    const sw = iw * imgScale, sh = ih * imgScale;
+    const sx = imgX + (cw - sw) / 2;
+    const sy = imgY + (ch - sh) / 2;
+
+    ctx.drawImage(userImage, sx, sy, sw, sh);
+  }
+
+  ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+
+  download.classList.remove("hidden");
+}
+
+// upload
+function handleFile(file){
+  const reader = new FileReader();
+  reader.onload = e => {
+    userImage = new Image();
+    userImage.onload = () => { imgScale = 1; imgX = 0; imgY = 0; drawCanvas(); };
+    userImage.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+dropZone.addEventListener("click",()=> upload.click());
+dropZone.addEventListener("dragover",e=>{ e.preventDefault(); });
+dropZone.addEventListener("drop",e=>{ e.preventDefault(); handleFile(e.dataTransfer.files[0]); });
+upload.addEventListener("change",e=>{ handleFile(e.target.files[0]); });
+
+// PC drag
+canvas.addEventListener("mousedown",e=>{
+  dragging = true;
+  startX = e.clientX;
+  startY = e.clientY;
+});
+canvas.addEventListener("mousemove",e=>{
+  if(dragging){
+    imgX += e.clientX - startX;
+    imgY += e.clientY - startY;
+    startX = e.clientX; startY = e.clientY;
+    drawCanvas();
+  }
+});
+canvas.addEventListener("mouseup",()=> dragging=false);
+canvas.addEventListener("mouseleave",()=> dragging=false);
+
+// Mobile gestures
+canvas.addEventListener("touchstart",e=>{
+  if(e.touches.length === 1){
+    dragging = true;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  } else if(e.touches.length === 2){
+    dragging = false;
+    const t1=e.touches[0], t2=e.touches[1];
+    lastTouchDistance=Math.hypot(t2.clientX-t1.clientX, t2.clientY-t1.clientY);
+    lastMidpoint={x:(t1.clientX+t2.clientX)/2, y:(t1.clientY+t2.clientY)/2};
+  }
+});
+
+canvas.addEventListener("touchmove",e=>{
+  e.preventDefault();
+  if(e.touches.length === 1 && dragging){
+    imgX += e.touches[0].clientX - startX;
+    imgY += e.touches[0].clientY - startY;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    drawCanvas();
+  }
+  else if(e.touches.length === 2){
+    const t1=e.touches[0], t2=e.touches[1];
+    const newDist=Math.hypot(t2.clientX-t1.clientX, t2.clientY-t1.clientY);
+    imgScale *= newDist / lastTouchDistance;
+
+    lastTouchDistance = newDist;
+    drawCanvas();
+  }
+},{passive:false});
+
+canvas.addEventListener("touchend",()=> dragging=false);
+
+// Download
+download.addEventListener("click", ()=>{
+  notifText.innerText = "ডাউনলোড হচ্ছে...";
+  notifIcon.className = "fa-solid fa-spinner fa-spin text-blue-400";
+  notification.classList.add("show");
+
+  setTimeout(()=>{
+    const link = document.createElement("a");
+    link.download = formatCounter(downloadCounter);
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+
+    downloadCounter++;
+    localStorage.setItem("downloadCounter", downloadCounter);
+
+    notifText.innerText = "ডাউনলোড সম্পন্ন হয়েছে!";
+    notifIcon.className = "fa-solid fa-circle-check text-green-400";
+    setTimeout(()=> notification.classList.remove("show"),2000);
+
+  },1500);
+});
+</script>
+
+<footer class="fixed bottom-0 left-0 w-full bg-white/70 backdrop-blur-md shadow-lg py-3 border-t border-gray-300">
+  <div class="text-center text-sm text-gray-700 flex justify-center items-center gap-2">
+    <i class="fa-solid fa-code text-green-700"></i>
+    <span>Web App Designed by</span>
+    <a href="https://www.facebook.com/bdmaino" target="_blank"
+       class="text-blue-700 font-semibold hover:underline flex items-center gap-1">
+      Main Uddin Hasan <i class="fa-brands fa-facebook"></i>
+    </a>
+  </div>
+</footer>
+
+</body>
+</html>
