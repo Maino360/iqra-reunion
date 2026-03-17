@@ -3,56 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ইকরা ঈদ পুনর্মিলনী ২০২৬</title>
+<title>ইকরা ঈদ পুনর্মিলনী ২০২৬ - প্রিমিয়াম ফ্রেম</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
 
 <style>
-@font-face {
-  font-family: 'BanglaFont';
-  src: url('fonts/BanglaFont.ttf') format('truetype');
-}
+/* গুগল ফন্ট (উন্নত দেখানোর জন্য একটি ভালো বাংলা ফন্ট) */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;700&display=swap');
 
 :root {
-  --dynamic-accent: #007aff;
-  --dynamic-accent-rgb: 0, 122, 255;
-  --dynamic-bg: #f2f2f7;
+  /* ডিফল্ট উৎসবমুখর গাঢ় থিম */
+  --dynamic-accent: #ff2d55; /* উৎসবমুখর লাল */
+  --dynamic-accent-rgb: 255, 45, 85;
+  --dynamic-bg-deep: #1a0a2a; /* গাঢ় বেগুনি */
+  --dynamic-bg-light: #3a1a5a; /* হালকা বেগুনি */
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
 }
 
 body {
-  font-family: 'BanglaFont', -apple-system, sans-serif;
-  background-color: var(--dynamic-bg);
+  font-family: 'Noto Serif Bengali', -apple-system, sans-serif;
+  /* ডাইনামিক গ্রাডিয়েন্ট ব্যাকগ্রাউন্ড */
+  background: linear-gradient(135deg, var(--dynamic-bg-deep) 0%, var(--dynamic-bg-light) 100%);
   transition: background 1.5s ease;
   min-height: 100vh;
   margin: 0;
-  color: #1c1c1e;
+  color: var(--text-primary);
   overflow-x: hidden;
+  padding-bottom: 120px; /* ফুটারের জন্য জায়গা */
 }
 
-/* --- ইন-অ্যাপ ব্রাউজার পপআপ স্টাইল --- */
+/* --- ইন-অ্যাপ ব্রাউজার পপআপ স্টাইল (আপডেটেড) --- */
 #browser-alert {
   display: none;
   position: fixed;
   inset: 0;
   z-index: 99999;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(15px);
   align-items: center;
   justify-content: center;
   padding: 20px;
 }
 
 .alert-card {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(30, 10, 50, 0.9);
   backdrop-filter: blur(25px);
   border-radius: 2.5rem;
   padding: 35px;
   max-width: 420px;
   width: 100%;
   text-align: center;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.25);
-  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.1);
   transform: scale(0.85);
   animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
@@ -69,7 +75,7 @@ body {
   display: flex; align-items: center; justify-content: center;
   margin: 0 auto 20px;
   font-size: 32px;
-  box-shadow: 0 12px 24px rgba(var(--dynamic-accent-rgb), 0.3);
+  box-shadow: 0 12px 24px rgba(var(--dynamic-accent-rgb), 0.4);
 }
 
 .close-alert {
@@ -77,11 +83,12 @@ body {
   background: var(--dynamic-accent);
   color: white;
   width: 100%;
-  padding: 15px;
+  padding: 16px;
   border-radius: 18px;
   font-weight: 700;
   cursor: pointer;
   transition: 0.3s;
+  box-shadow: 0 8px 20px rgba(var(--dynamic-accent-rgb), 0.3);
 }
 
 /* --- কনফেটি এনিমেশন --- */
@@ -96,52 +103,95 @@ body {
   to { transform: translateY(100vh) rotate(360deg); }
 }
 
-/* --- Header & Canvas UI --- */
-.header-container { min-height: 90px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+/* --- Header & Title --- */
 .gradient-heading {
-  background: linear-gradient(90deg, var(--dynamic-accent), #ff2d55, var(--dynamic-accent));
-  background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  animation: shine 3s linear infinite; display: inline;
+  background: linear-gradient(135deg, #fff 30%, var(--dynamic-accent) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  display: inline;
+  text-shadow: 0 4px 15px rgba(var(--dynamic-accent-rgb), 0.3);
 }
-@keyframes shine { to { background-position: 200% center; } }
 
 .typing-cursor {
-  display: inline-block; width: 3px; height: 1.2em; background-color: var(--dynamic-accent);
+  display: inline-block; width: 3px; height: 1.1em; background-color: var(--dynamic-accent);
   margin-left: 4px; vertical-align: middle; animation: blink 0.7s step-end infinite;
+  box-shadow: 0 0 10px var(--dynamic-accent);
 }
 @keyframes blink { from, to { opacity: 1 } 50% { opacity: 0 } }
 
+/* --- প্রিমিয়াম গ্লাস-মরফিজম (Glassmorphism) কার্ড --- */
 .apple-glass {
-  background: rgba(255, 255, 255, 0.45); backdrop-filter: blur(30px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 2.5rem;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+  background: var(--glass-bg);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: 2.5rem;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.3);
 }
 
-#canvas { touch-action: none !important; max-width: 100%; border-radius: 1.5rem; box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15); }
+/* ক্যানভাস স্টাইল */
+#canvas {
+  touch-action: none !important;
+  max-width: 100%;
+  border-radius: 2rem;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  border: 4px solid rgba(255,255,255,0.05);
+  background: #000;
+}
 
+/* বোতাম এবং কন্ট্রোলস */
 .ios-btn {
-  position: relative; overflow: hidden;
-  background: linear-gradient(180deg, var(--dynamic-accent) 0%, rgba(var(--dynamic-accent-rgb), 0.85) 100%);
-  color: white; font-weight: 700; padding: 18px 24px; border-radius: 1.3rem;
+  background: linear-gradient(180deg, var(--dynamic-accent) 0%, rgba(var(--dynamic-accent-rgb), 0.8) 100%);
+  color: white;
+  font-weight: 700;
+  padding: 20px;
+  border-radius: 1.5rem;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); display: flex; align-items: center; justify-content: center; gap: 12px;
+  box-shadow: 0 12px 30px rgba(var(--dynamic-accent-rgb), 0.4);
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+}
+.ios-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(var(--dynamic-accent-rgb), 0.5);
 }
 
+.control-btn {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  border-radius: 1.3rem;
+  transition: all 0.3s;
+}
+.control-btn:hover { background: rgba(255,255,255,0.15); }
+
+/* স্লাইডার স্টাইল */
+input[type=range] {
+  -webkit-appearance: none; background: transparent;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%; height: 6px; cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 3px;
+}
+input[type=range]::-webkit-slider-thumb {
+  height: 22px; width: 22px; border-radius: 50%; background: var(--dynamic-accent);
+  cursor: pointer; -webkit-appearance: none; margin-top: -8px;
+  box-shadow: 0 0 10px rgba(var(--dynamic-accent-rgb), 0.5);
+}
+
+/* ফুটার এবং নোটিফিকেশন */
 .premium-footer {
   position: fixed; bottom: 0; left: 0; width: 100%;
-  background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(25px);
-  padding: 12px 10px 20px 10px; z-index: 1000; text-align: center;
+  background: rgba(20, 10, 30, 0.7); backdrop-filter: blur(20px);
+  padding: 15px 10px 25px 10px; z-index: 1000; text-align: center;
+  border-top: 1px solid var(--glass-border);
 }
 
 #notification {
   position: fixed; top: 30px; left: 50%; transform: translateX(-50%) translateY(-150%);
   background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
-  padding: 14px 28px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+  padding: 16px 30px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);
   z-index: 10001; transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-  display: flex; align-items: center; gap: 12px; font-weight: 600;
+  display: flex; align-items: center; gap: 12px; font-weight: 700; color: #1a0a2a;
 }
 #notification.show { transform: translateX(-50%) translateY(0); }
-main { padding-bottom: 180px !important; }
 </style>
 </head>
 
@@ -152,8 +202,8 @@ main { padding-bottom: 180px !important; }
     <div class="alert-icon-wrap">
       <i class="fa-solid fa-compass"></i>
     </div>
-    <h2 class="text-xl font-bold mb-3 text-gray-800">ব্রাউজার সতর্কতা!</h2>
-    <p class="text-gray-600 text-sm leading-relaxed">
+    <h2 class="text-2xl font-bold mb-4">ব্রাউজার সতর্কতা!</h2>
+    <p class="text-secondary text-sm leading-relaxed">
       আপনি <b>ফেসবুক বা মেসেঞ্জার</b> ব্রাউজার ব্যবহার করছেন। কারিগরি সীমাবদ্ধতার কারণে এখান থেকে ছবি ডাউনলোড না-ও হতে পারে।
       <br><br>
       ভালো অভিজ্ঞতার জন্য উপরে ডানদিকের <b>তিনটি ডট (⋮)</b>-এ ক্লিক করে <b>"Open in Browser"</b> বা <b>"Chrome এ ওপেন করুন"</b> সিলেক্ট করুন।
@@ -164,44 +214,47 @@ main { padding-bottom: 180px !important; }
   </div>
 </div>
 
-<header class="text-center pt-10 px-6 header-container">
-  <h1 class="text-3xl font-bold leading-tight">
+<header class="text-center pt-12 px-6 mb-8">
+  <h1 class="text-4xl font-bold leading-tight">
     <span id="typing-text" class="gradient-heading"></span><span class="typing-cursor"></span>
   </h1>
-  <p class="text-xs mt-3 text-gray-500 max-w-xs mx-auto">
+  <p class="text-xs mt-4 text-secondary max-w-xs mx-auto">
     দুই আঙ্গুল দিয়ে জুম এবং এক আঙ্গুল দিয়ে ছবি মুভ করুন।
   </p>
 </header>
 
-<main class="flex-grow flex flex-col items-center justify-center p-5">
-  <div class="apple-glass w-full max-w-lg p-5 space-y-5">
+<main class="flex-grow flex flex-col items-center justify-center p-4">
+  <div class="apple-glass w-full max-w-xl p-6 space-y-6">
     
-    <div id="dropZone" class="bg-white/30 rounded-3xl p-6 border-2 border-dashed border-gray-400/30 text-center hover:bg-white/50 transition cursor-pointer">
-      <i class="fa-solid fa-camera-retro text-2xl text-gray-400"></i>
-      <p class="mt-1 text-sm text-gray-600 font-medium">ছবি আপলোড করুন</p>
+    <div id="dropZone" class="bg-white/5 rounded-3xl p-8 border-2 border-dashed border-white/10 text-center hover:bg-white/10 transition cursor-pointer group">
+      <div class="alert-icon-wrap w-16 h-16 text-xl mb-3 group-hover:scale-110 transition">
+        <i class="fa-solid fa-camera-retro text-white"></i>
+      </div>
+      <p class="mt-2 text-sm text-white font-bold">আপনার ছবি আপলোড করুন</p>
+      <p class="text-xs text-secondary mt-1">ক্লিক করুন বা ছবি ড্র্যাগ করুন</p>
       <input type="file" id="upload" accept="image/*" class="hidden">
     </div>
 
-    <div class="relative flex justify-center">
-        <canvas id="canvas" width="2400" height="2400"></canvas>
+    <div class="relative flex justify-center py-4">
+        <canvas id="canvas" width="2400" height="2400" class="w-full max-w-sm"></canvas>
     </div>
 
-    <div class="space-y-5">
-      <div class="flex items-center gap-4 bg-black/5 p-4 rounded-2xl">
-        <i class="fa-solid fa-magnifying-glass-minus text-gray-400"></i>
+    <div class="space-y-6 bg-black/20 p-5 rounded-3xl border border-white/5">
+      <div class="flex items-center gap-4">
+        <i class="fa-solid fa-magnifying-glass-minus text-secondary"></i>
         <input type="range" id="zoomSlider" min="0.1" max="4" step="0.01" value="1" class="w-full">
-        <i class="fa-solid fa-magnifying-glass-plus text-gray-400"></i>
+        <i class="fa-solid fa-magnifying-glass-plus text-secondary"></i>
       </div>
 
       <div class="flex justify-between gap-3">
-        <button id="mirrorBtn" class="flex-1 py-4 bg-white/60 rounded-2xl shadow-sm hover:bg-white transition"><i class="fa-solid fa-arrows-left-right"></i></button>
-        <button id="rotateBtn" class="flex-1 py-4 bg-white/60 rounded-2xl shadow-sm hover:bg-white transition"><i class="fa-solid fa-rotate-right"></i></button>
-        <button id="resetBtn" class="w-16 py-4 bg-red-500/10 text-red-600 rounded-2xl hover:bg-red-500/20 transition"><i class="fa-solid fa-trash-can"></i></button>
+        <button id="mirrorBtn" class="flex-1 py-4 control-btn" title="মিরর"><i class="fa-solid fa-arrows-left-right"></i></button>
+        <button id="rotateBtn" class="flex-1 py-4 control-btn" title="রোটেট"><i class="fa-solid fa-rotate-right"></i></button>
+        <button id="resetBtn" class="w-20 py-4 bg-red-500/10 text-red-400 rounded-2xl hover:bg-red-500/20 transition" title="রিসেট"><i class="fa-solid fa-trash-can"></i></button>
       </div>
 
-      <button id="download" class="ios-btn hidden w-full">
-          <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
-          <span>ফ্রেমটি ডাউনলোড করুন</span>
+      <button id="download" class="ios-btn hidden w-full text-lg">
+          <i class="fa-solid fa-wand-magic-sparkles text-2xl"></i>
+          <span>ডাউনলোড করুন</span>
       </button>
     </div>
   </div>
@@ -213,13 +266,13 @@ main { padding-bottom: 180px !important; }
 </div>
 
 <footer class="premium-footer">
-  <div class="flex items-center justify-center gap-2 text-sm text-gray-700">
+  <div class="flex items-center justify-center gap-2 text-sm text-secondary">
     <span>Designed by</span>
-    <a href="https://www.facebook.com/bdmaino" target="_blank" class="footer-link">
+    <a href="https://www.facebook.com/bdmaino" target="_blank" class="footer-link text-white font-bold hover:text-[var(--dynamic-accent)]">
       Main Uddin Hasan <i class="fa-brands fa-facebook ml-1"></i>
     </a>
   </div>
-  <div class="w-20 h-1 bg-black/10 rounded-full mx-auto mt-2"></div>
+  <div class="w-24 h-1.5 bg-white/10 rounded-full mx-auto mt-3"></div>
 </footer>
 
 <script>
@@ -240,18 +293,19 @@ function closeAlert() {
 
 // --- সেলিব্রেশন কনফেটি ইফেক্ট ---
 function celebrate() {
-  for (let i = 0; i < 80; i++) {
+  for (let i = 0; i < 100; i++) {
     const confetti = document.createElement('div');
     confetti.classList.add('confetti');
     confetti.style.left = Math.random() * 100 + 'vw';
-    confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
+    confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 80%, 60%)`;
     confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+    confetti.style.opacity = Math.random();
     document.body.appendChild(confetti);
     setTimeout(() => confetti.remove(), 4000);
   }
 }
 
-// --- টাইপরাইটার এবং ক্যানভাস লজিক ---
+// --- টাইপরাইটার লজিক ---
 const typingTarget = document.getElementById("typing-text");
 const fullText = "ইকরা ঈদ পুনর্মিলনী ২০২৬";
 let charIndex = 0; let isDeleting = false;
@@ -264,10 +318,11 @@ function typeWriter() {
     typingTarget.textContent = fullText.substring(0, charIndex - 1);
     charIndex--; setTimeout(typeWriter, 100);
   } else {
-    isDeleting = !isDeleting; setTimeout(typeWriter, isDeleting ? 2000 : 1000); 
+    isDeleting = !isDeleting; setTimeout(typeWriter, isDeleting ? 3000 : 1000); 
   }
 }
 
+// --- ক্যানভাস এবং ইমেজ এডিটিং লজিক ---
 const canvas = document.getElementById("canvas"), ctx = canvas.getContext("2d");
 const upload = document.getElementById("upload"), dropZone = document.getElementById("dropZone");
 const zoomSlider = document.getElementById("zoomSlider"), download = document.getElementById("download");
@@ -275,116 +330,222 @@ const notification = document.getElementById("notification"), notifText = docume
 
 const colorThief = new ColorThief();
 const frame = new Image();
-frame.src = "frame.png"; 
+frame.src = "frame.png"; // নিশ্চিত করুন আপনার frame.png ফাইলটি একই ফোল্ডারে আছে
 
 let userImage = null, imgX = 0, imgY = 0, imgScale = 1, rotation = 0, isMirrored = false;
 let startX = 0, startY = 0, dragging = false, lastTouchDistance = 0;
 
 frame.onload = () => drawCanvas();
+frame.onerror = () => {
+    notifText.innerText = "ফ্রেম লোড হতে সমস্যা হয়েছে!";
+    notifIcon.className = "fa-solid fa-circle-exclamation text-red-500";
+    notification.classList.add("show");
+}
 
+// ডাইনামিক থিম আপডেট (উন্নত)
 function updateTheme(img) {
   try {
     const color = colorThief.getColor(img);
     const rgb = `${color[0]}, ${color[1]}, ${color[2]}`;
+    // হালকা কালার হলে প্রমিনেন্ট করার জন্য স্যাসুরেশন বাড়ানো যেতে পারে
     document.documentElement.style.setProperty('--dynamic-accent', `rgb(${rgb})`);
     document.documentElement.style.setProperty('--dynamic-accent-rgb', rgb);
-    document.documentElement.style.setProperty('--dynamic-bg', `rgba(${rgb}, 0.08)`);
-  } catch (e) {}
+    
+    // ব্যাকগ্রাউন্ড গ্রাডিয়েন্ট আপডেট
+    const deepBg = `rgb(${Math.max(0, color[0]-40)}, ${Math.max(0, color[1]-40)}, ${Math.max(0, color[2]-40)})`;
+    const lightBg = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+    document.documentElement.style.setProperty('--dynamic-bg-deep', deepBg);
+    document.documentElement.style.setProperty('--dynamic-bg-light', lightBg);
+    
+  } catch (e) {
+    console.log("ColorThief error:", e);
+  }
 }
 
 function drawCanvas() {
+  // ক্যানভাস রিসেট
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
   if (userImage) {
     ctx.save();
     // অটো-এনহ্যান্সমেন্ট ফিল্টার
-    ctx.filter = "brightness(1.02) contrast(1.05)";
+    ctx.filter = "brightness(1.02) contrast(1.04) saturate(1.05)";
+    
+    // ছবির অবস্থান এবং রোটেশন ঠিক করা
     ctx.translate(canvas.width/2 + imgX, canvas.height/2 + imgY);
     ctx.rotate((rotation * Math.PI) / 180);
+    
+    // মিরর ইফেক্ট
     if (isMirrored) ctx.scale(-1, 1);
+    
+    // ছবি ড্র করা
     const sw = userImage.width * imgScale, sh = userImage.height * imgScale;
     ctx.drawImage(userImage, -sw/2, -sh/2, sw, sh);
+    
     ctx.filter = "none";
     ctx.restore();
+    
+    // ডাউনলোড বাটন দেখানো
     download.classList.remove("hidden");
+    dropZone.classList.add("hidden"); // ছবি আপলোড হলে জোনটি লুকিয়ে ফেলা
+  } else {
+    // ছবি না থাকলে কালো ব্যাকগ্রাউন্ড
+    ctx.fillStyle = "#100a1a";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
+  
+  // সবার উপরে ফ্রেমটি ড্র করা
   ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
 }
 
+// ফাইল হ্যান্ডলিং
 function handleFile(file) {
-  if(!file) return;
+  if(!file || !file.type.startsWith('image/')) {
+      alert("দয়া করে একটি সঠিক ছবি ফাইল নির্বাচন করুন।");
+      return;
+  }
+  
+  notifText.innerText = "ছবি লোড হচ্ছে...";
+  notifIcon.className = "fa-solid fa-spinner fa-spin";
+  notification.classList.add("show");
+
   const reader = new FileReader();
   reader.onload = e => {
     userImage = new Image();
     userImage.crossOrigin = "Anonymous";
     userImage.onload = () => {
+      // ছবির প্রাথমিক স্কেল ঠিক করা (ফ্রেমের ভেতর ফিট করার জন্য)
       const ratio = Math.max(canvas.width / userImage.width, canvas.height / userImage.height);
-      imgScale = ratio; imgX = 0; imgY = 0; rotation = 0; isMirrored = false;
+      imgScale = ratio; 
+      imgX = 0; imgY = 0; rotation = 0; isMirrored = false;
       zoomSlider.value = ratio;
-      updateTheme(userImage);
+      
+      updateTheme(userImage); // থিম আপডেট
       drawCanvas();
+      
+      notification.classList.remove("show");
     };
+    userImage.onerror = () => {
+        notifText.innerText = "ছবি প্রসেস করতে সমস্যা হয়েছে!";
+        notifIcon.className = "fa-solid fa-circle-exclamation text-red-500";
+    }
     userImage.src = e.target.result;
   };
   reader.readAsDataURL(file);
 }
 
+// ইভেন্ট লিসেনার
 dropZone.onclick = () => upload.click();
 upload.onchange = e => handleFile(e.target.files[0]);
+
+// ড্র্যাগ অ্যান্ড ড্রপ
+dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('bg-white/15'); });
+dropZone.addEventListener('dragleave', () => { dropZone.classList.remove('bg-white/15'); });
+dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('bg-white/15');
+    handleFile(e.dataTransfer.files[0]);
+});
+
 zoomSlider.oninput = e => { imgScale = parseFloat(e.target.value); drawCanvas(); };
 document.getElementById("rotateBtn").onclick = () => { rotation = (rotation + 90) % 360; drawCanvas(); };
 document.getElementById("mirrorBtn").onclick = () => { isMirrored = !isMirrored; drawCanvas(); };
 document.getElementById("resetBtn").onclick = () => { 
-    imgX=0; imgY=0; imgScale=1; rotation=0; isMirrored=false; 
-    zoomSlider.value = 1; drawCanvas(); 
+    if(!userImage) return;
+    const ratio = Math.max(canvas.width / userImage.width, canvas.height / userImage.height);
+    imgX=0; imgY=0; imgScale=ratio; rotation=0; isMirrored=false; 
+    zoomSlider.value = ratio; drawCanvas(); 
 };
 
-// ক্যানভাস কন্ট্রোল
-canvas.onmousedown = e => { dragging = true; startX = e.clientX; startY = e.clientY; };
-window.onmousemove = e => {
-  if (dragging) {
-    imgX += (e.clientX - startX) * 2.5; imgY += (e.clientY - startY) * 2.5;
-    startX = e.clientX; startY = e.clientY; drawCanvas();
-  }
+// --- ক্যানভাস টাচ/মাউস কন্ট্রোল (উন্নত) ---
+const getEventPos = (e) => {
+    if (e.touches && e.touches.length > 0) {
+        return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
+    return { x: e.clientX, y: e.clientY };
 };
-window.onmouseup = () => dragging = false;
 
-canvas.ontouchstart = e => {
-  if (e.touches.length === 1) {
-    dragging = true; startX = e.touches[0].clientX; startY = e.touches[0].clientY;
-  } else if (e.touches.length === 2) {
-    lastTouchDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
-  }
+const startDrag = (e) => {
+    if(!userImage) return;
+    dragging = true;
+    const pos = getEventPos(e);
+    startX = pos.x; startY = pos.y;
 };
-canvas.ontouchmove = e => {
-  if (e.touches.length === 1 && dragging) {
+
+const moveDrag = (e) => {
+    if (!dragging || !userImage) return;
+    if (e.touches && e.touches.length === 2) return; // জুম করার সময় মুভ হবে না
+
     e.preventDefault();
-    imgX += (e.touches[0].clientX - startX) * 2.5; imgY += (e.touches[0].clientY - startY) * 2.5;
-    startX = e.touches[0].clientX; startY = e.touches[0].clientY;
-  } else if (e.touches.length === 2) {
-    e.preventDefault();
-    const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
-    imgScale *= (dist / lastTouchDistance); lastTouchDistance = dist; zoomSlider.value = imgScale;
-  }
-  drawCanvas();
+    const pos = getEventPos(e);
+    // ছবির মুভমেন্টের গতি (ডেটা ২.৫ গুণ বাড়ানো হয়েছে ক্যানভাস রেজোলিউশনের জন্য)
+    imgX += (pos.x - startX) * 2.8; 
+    imgY += (pos.y - startY) * 2.8;
+    startX = pos.x; startY = pos.y;
+    drawCanvas();
 };
-canvas.ontouchend = () => dragging = false;
 
+const endDrag = () => dragging = false;
+
+// মাউস ইভেন্ট
+canvas.onmousedown = startDrag;
+window.onmousemove = moveDrag;
+window.onmouseup = endDrag;
+
+// টাচ ইভেন্ট (মাল্টি-টাচ জুম সহ)
+canvas.ontouchstart = (e) => {
+    if (e.touches.length === 1) {
+        startDrag(e);
+    } else if (e.touches.length === 2) {
+        dragging = false; // জুম শুরু হলে ড্র্যাগ বন্ধ
+        lastTouchDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+    }
+};
+
+canvas.ontouchmove = (e) => {
+    if (e.touches.length === 1) {
+        moveDrag(e);
+    } else if (e.touches.length === 2) {
+        e.preventDefault();
+        const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+        const delta = dist / lastTouchDistance;
+        imgScale *= delta;
+        lastTouchDistance = dist;
+        zoomSlider.value = imgScale; // স্লাইডার আপডেট
+        drawCanvas();
+    }
+};
+canvas.ontouchend = endDrag;
+
+
+// --- ডাউনলোড লজিক ---
 download.onclick = () => {
-  celebrate();
-  notifText.innerText = "প্রস্তুত হচ্ছে...";
+  celebrate(); // আতশবাজি
+  notifText.innerText = "ফ্রেমটি তৈরি হচ্ছে...";
   notifIcon.className = "fa-solid fa-magic fa-spin";
   notification.classList.add("show");
+  
+  // প্রসেসিং টাইম দেওয়ার জন্য সামান্য ডিলে
   setTimeout(() => {
-    const link = document.createElement("a");
-    link.download = `Iqra_Eid_2026.png`;
-    link.href = canvas.toDataURL("image/png", 1.0);
-    link.click();
-    notifText.innerText = "সাফল্যের সাথে ডাউনলোড হয়েছে!";
-    notifIcon.className = "fa-solid fa-circle-check text-green-500";
-    setTimeout(() => notification.classList.remove("show"), 2500);
-  }, 1200);
+    try {
+        const link = document.createElement("a");
+        link.download = `Iqra_Eid_2026_${Date.now()}.png`;
+        // হাই-কোয়ালিটি পিএনজি
+        link.href = canvas.toDataURL("image/png", 1.0);
+        link.click();
+        
+        notifText.innerText = "সাফল্যের সাথে ডাউনলোড হয়েছে!";
+        notifIcon.className = "fa-solid fa-circle-check text-green-500";
+        setTimeout(() => notification.classList.remove("show"), 3000);
+    } catch (e) {
+        notifText.innerText = "ডাউনলোড করতে সমস্যা হয়েছে!";
+        notifIcon.className = "fa-solid fa-circle-exclamation text-red-500";
+        console.error(e);
+    }
+  }, 1500);
 };
 
+// পেজ লোড ইভেন্ট
 window.onload = () => {
   typeWriter();
   setTimeout(checkInAppBrowser, 2000);
