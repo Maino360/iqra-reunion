@@ -1,2 +1,2 @@
 Live link
-iqra-reunion.vercel.app
+https://iqra-reunion.vercel.app/
