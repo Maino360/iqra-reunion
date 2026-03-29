@@ -6,7 +6,6 @@
 <title>ইকরা ঈদ পুনর্মিলনী ২০২৬ </title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;500;700&display=swap');
@@ -25,7 +24,7 @@ body {
                     radial-gradient(circle at bottom left, rgba(var(--dynamic-accent-rgb), 0.1), transparent);
   color: #f8fafc;
   min-height: 100vh;
-  overflow: hidden; /* অ্যাপ ফিল দেওয়ার জন্য স্ক্রল বন্ধ */
+  overflow: hidden; 
   display: flex;
   flex-direction: column;
 }
@@ -38,7 +37,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  padding-bottom: 280px; /* নিচের প্যানেলের জন্য জায়গা */
+  padding-bottom: 280px; 
 }
 
 #canvas-wrapper {
@@ -82,7 +81,6 @@ body {
   margin: -10px auto 20px;
 }
 
-/* --- প্রিমিয়াম বাটনস --- */
 .action-btn {
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.1);
@@ -110,7 +108,6 @@ body {
   box-shadow: 0 10px 20px -5px rgba(var(--dynamic-accent-rgb), 0.4);
 }
 
-/* ড্রপ জোন ওভারলে */
 #dropZone {
   position: absolute;
   inset: 0;
@@ -123,7 +120,6 @@ body {
   transition: 0.3s;
 }
 
-/* রেঞ্জ স্লাইডার কাস্টম */
 input[type=range] {
   -webkit-appearance: none;
   width: 100%;
@@ -144,7 +140,6 @@ input[type=range]::-webkit-slider-thumb {
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
-/* নোটিফিকেশন অ্যাপ স্টাইল */
 #notification {
   position: fixed;
   top: 20px;
@@ -163,9 +158,42 @@ input[type=range]::-webkit-slider-thumb {
   box-shadow: 0 15px 30px rgba(0,0,0,0.3);
 }
 #notification.show { transform: translateX(-50%) translateY(0); }
+
+/* In-App Browser Alert Style */
+.alert-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.alert-card {
+  background: #1e293b;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 30px;
+  padding: 30px;
+  max-width: 350px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
 </style>
 </head>
 <body>
+
+<div id="inAppAlert" class="alert-overlay">
+  <div class="alert-card animate-bounce-in">
+    <div class="w-16 h-16 bg-amber-500/20 text-amber-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+      <i class="fa-solid fa-triangle-exclamation text-2xl"></i>
+    </div>
+    <h3 class="text-xl font-bold text-white mb-2">ব্রাউজার সমস্যা!</h3>
+    <p class="text-slate-400 text-sm mb-6">আপনি মেসেঞ্জার বা ফেসবুক ব্রাউজারে আছেন। সঠিক ভাবে ছবি সেভ করতে উপরের ৩-ডট মেনু থেকে <b>'Open in Chrome/Browser'</b> করুন।</p>
+    <button onclick="closeAlert()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold transition">ঠিক আছে</button>
+  </div>
+</div>
 
 <div id="notification">
   <i class="fa-solid fa-circle-check text-indigo-600"></i>
@@ -175,7 +203,7 @@ input[type=range]::-webkit-slider-thumb {
 <header class="p-6 flex justify-between items-center">
   <div>
     <h1 class="text-xl font-bold tracking-tight">ইকরা ঈদ পুনর্মিলনী ২০২৬</h1>
-    <p class="text-[10px] text-slate-400 uppercase tracking-widest">Amirabad,Lohagara,Chattogram.</p>
+    <p class="text-[10px] text-slate-400 uppercase tracking-widest">Amirabad, Lohagara, Chattogram.</p>
   </div>
   <button id="resetBtn" class="text-slate-400 hover:text-white transition">
     <i class="fa-solid fa-rotate-left text-lg"></i>
@@ -230,35 +258,44 @@ input[type=range]::-webkit-slider-thumb {
 </div>
 
 <script>
-// --- লজিক অংশ ---
 const canvas = document.getElementById("canvas"), ctx = canvas.getContext("2d");
 const upload = document.getElementById("upload"), dropZone = document.getElementById("dropZone");
 const zoomSlider = document.getElementById("zoomSlider"), download = document.getElementById("download");
 const notification = document.getElementById("notification"), notifText = document.getElementById("notifText");
 
 const frame = new Image();
-frame.src = "frame.png"; // আপনার ফ্রেমের লিঙ্ক দিন
+frame.src = "frame.png"; // নিশ্চিত করুন ফাইল পাথ সঠিক আছে
 
 let userImage = null, imgX = 0, imgY = 0, imgScale = 1, rotation = 0, isMirrored = false;
 let startX = 0, startY = 0, dragging = false;
 
-frame.onload = () => drawCanvas();
+// ইন-অ্যাপ ব্রাউজার ডিটেকশন
+function checkInApp() {
+  const ua = navigator.userAgent || navigator.vendor || window.opera;
+  const isInApp = (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1) || (ua.indexOf("Messenger") > -1) || (ua.indexOf("Instagram") > -1);
+  if (isInApp) {
+    document.getElementById('inAppAlert').style.display = 'flex';
+  }
+}
+function closeAlert() { document.getElementById('inAppAlert').style.display = 'none'; }
+
+window.onload = () => {
+  drawCanvas();
+  setTimeout(checkInApp, 1500);
+};
 
 function drawCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
   if (userImage) {
     ctx.save();
     ctx.translate(canvas.width/2 + imgX, canvas.height/2 + imgY);
     ctx.rotate((rotation * Math.PI) / 180);
     if (isMirrored) ctx.scale(-1, 1);
-    
     const sw = userImage.width * imgScale, sh = userImage.height * imgScale;
     ctx.drawImage(userImage, -sw/2, -sh/2, sw, sh);
     ctx.restore();
     dropZone.style.display = 'none';
   }
-
   ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
 }
 
@@ -281,13 +318,11 @@ function handleFile(file) {
 dropZone.onclick = () => upload.click();
 upload.onchange = e => handleFile(e.target.files[0]);
 
-// ইন্টারঅ্যাকশন
 zoomSlider.oninput = e => { imgScale = parseFloat(e.target.value); drawCanvas(); };
 document.getElementById("rotateBtn").onclick = () => { rotation = (rotation + 90) % 360; drawCanvas(); };
 document.getElementById("mirrorBtn").onclick = () => { isMirrored = !isMirrored; drawCanvas(); };
 document.getElementById("resetBtn").onclick = () => { location.reload(); };
 
-// ড্র্যাগিং লজিক (Simplified)
 const startAction = (e) => {
     dragging = true;
     const pos = e.touches ? e.touches[0] : e;
@@ -308,15 +343,18 @@ canvas.addEventListener('touchstart', startAction);
 window.addEventListener('touchmove', moveAction);
 window.addEventListener('touchend', () => dragging = false);
 
-// ডাউনলোড
 download.onclick = () => {
-  showNotif("ছবিটি গ্যালারিতে সেভ হচ্ছে...");
+  showNotif("ছবিটি তৈরি হচ্ছে...");
   setTimeout(() => {
-    const link = document.createElement("a");
-    link.download = `Eid_2026.png`;
-    link.href = canvas.toDataURL("image/png");
-    link.click();
-    showNotif("সফলভাবে ডাউনলোড হয়েছে!");
+    try {
+      const link = document.createElement("a");
+      link.download = `Eid_Reunion_2026.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+      showNotif("সফলভাবে ডাউনলোড হয়েছে!");
+    } catch (e) {
+      showNotif("ছবিটির ওপর চেপে ধরে সেভ করুন");
+    }
   }, 1000);
 };
 
@@ -326,6 +364,5 @@ function showNotif(msg) {
   setTimeout(() => notification.classList.remove("show"), 3000);
 }
 </script>
-
 </body>
 </html>
